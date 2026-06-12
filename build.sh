@@ -10,18 +10,19 @@ git submodule update
 source poky/oe-init-build-env
 
 CONFLINE="MACHINE = \"qemuarm64\""
-
+THREADS_LINE='BB_NUMBER_THREADS = "10"'
+PARALLEL_MAKE_LINE='PARALLEL_MAKE = "-j10"'
 cat conf/local.conf | grep "${CONFLINE}" > /dev/null
 local_conf_info=$?
 
 if [ $local_conf_info -ne 0 ];then
 	echo "Append ${CONFLINE} in the local.conf file"
 	echo ${CONFLINE} >> conf/local.conf
-	
+    echo ${THREADS_LINE} >> conf/local.conf
+    echo ${PARALLEL_MAKE_LINE} >> conf/local.conf
 else
 	echo "${CONFLINE} already exists in the local.conf file"
 fi
-
 
 bitbake-layers show-layers | grep "meta-aesd" > /dev/null
 layer_info=$?
