@@ -14,7 +14,7 @@ THREADS_LINE='BB_NUMBER_THREADS = "10"'
 PARALLEL_MAKE_LINE='PARALLEL_MAKE = "-j10"'
 cat conf/local.conf | grep "${CONFLINE}" > /dev/null
 local_conf_info=$?
-#added for rebuild
+
 if [ $local_conf_info -ne 0 ];then
 	echo "Append ${CONFLINE} in the local.conf file"
 	echo ${CONFLINE} >> conf/local.conf
